@@ -1,0 +1,237 @@
+.detail-container,
+.bottom-container {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.7),
+    rgba(245, 247, 238, 0.7)
+  );
+}
+
+.detail-container {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: #333;
+}
+
+.bottom-container {
+  border-radius: 8px;
+  text-align: center;
+  max-width: 700px;
+  font-weight: bold;
+  margin: 80px auto;
+  padding: 2rem 2.5rem;
+  color: #731717;
+}
+.bottom-container h2 {
+  font-family: "Abhaya Libre", serif;
+  font-size: 2rem;
+}
+/* Header Title */
+.header-row {
+  margin-bottom: 1rem;
+
+  h2 {
+    font-family: "Abhaya Libre", serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #731717;
+    margin: 0 0 0.3rem 0;
+    border-bottom: 1px solid #858484;
+    padding-bottom: 0.2rem;
+  }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 0.4rem;
+
+    .merit-date {
+      font-style: italic;
+      margin-bottom: 1.5%;
+    }
+
+    .status-badge {
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .status-promised {
+      background-color: #fdd;
+      color: #b00;
+    }
+
+    .status-to-be-done {
+      background-color: #def;
+      color: #0366d6;
+    }
+
+    .status-abandoned {
+      background-color: #eee;
+      color: #555;
+    }
+  }
+}
+
+/* Date */
+.date-section {
+  margin-bottom: 2rem;
+  .merit-date {
+    font-size: 1rem;
+    color: #666;
+    font-style: italic;
+  }
+}
+
+.activity-period-section,
+.description-section,
+.receiver-section {
+  margin-bottom: 2rem;
+
+  h3 {
+    font-family: "Abhaya Libre", serif;
+    font-size: 1.8rem;
+    font-weight: 550;
+    color: #2c1602;
+    margin-bottom: 0.6rem;
+  }
+
+  .activity-period,
+  .description,
+  .receiver {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: left;
+    background-color: #f9f9f9;
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.03);
+  }
+}
+
+/* Video List Section */
+.video-list {
+  // new
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* keeps correct ratio */
+  max-width: 10%;
+  border: none;
+  // new
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 550;
+    color: #2c1602;
+    margin-bottom: 0.6rem;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      a {
+        text-decoration: none;
+        color: #1565c0;
+        font-weight: 500;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #0d47a1;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+/* Images Section */
+.images-section {
+  margin-bottom: 2rem;
+
+  h3 {
+    font-family: "Abhaya Libre", serif;
+    font-size: 1.8rem;
+    font-weight: 550;
+    color: #2c1602;
+    margin-bottom: 0.6rem;
+  }
+}
+
+/* Buttons */
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button-row button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 100px;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Optional: add subtle hover effects */
+.button-row button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* space between text and icon */
+}
+
+.button-row mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.btn-back {
+  background-color: rgba(15, 0, 83, 0.1);
+  color: rgb(4, 1, 59);
+}
+.btn-edit {
+  background-color: rgba(2, 88, 8, 0.1);
+  color: rgb(39, 59, 0);
+}
+
+.btn-delete {
+  background-color: rgba(139, 27, 4, 0.1);
+  color: rgb(82, 0, 0);
+}
+
+@media (max-width: 600px) {
+  .button-row mat-icon {
+    font-size: 26px;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+  }
+  .btn-icon {
+    visibility: hidden;
+  }
+
+  .header-row {
+    h2 {
+      font-size: 1.9rem;
+    }
+  }
+}

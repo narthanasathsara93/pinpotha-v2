@@ -1,0 +1,290 @@
+<div class="form-container" *ngIf="!loading; else loadingTemplate">
+  <div *ngIf="merit.id" class="header-row">
+    <h2>අංක {{ merit.id }}</h2>
+  </div>
+  <form (ngSubmit)="onSubmit()" #meritForm="ngForm">
+    <!-- Title -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>මාතෘකාව</mat-label>
+      <input matInput required [(ngModel)]="merit.title" name="title" />
+    </mat-form-field>
+
+    <!-- Description -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>විස්තරය</mat-label>
+      <textarea
+        matInput
+        rows="5"
+        [(ngModel)]="merit.description"
+        name="description"
+      ></textarea>
+    </mat-form-field>
+
+    <!-- Activity Date -->
+    <mat-label>පිංකම සිදු කරන දින වකවානු</mat-label>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>සිට</mat-label>
+      <input
+        matInput
+        [matDatepicker]="startPicker"
+        [(ngModel)]="merit.activity_start_date"
+        name="activity_start_date"
+        [value]="
+          merit.activity_start_date
+            ? (merit.activity_start_date | date : 'yyyy-MM-dd')
+            : ''
+        "
+        (dateChange)="
+          merit.activity_start_date = $event.value
+            ? $event.value.toISOString()
+            : ''
+        "
+      />
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width until-date">
+      <mat-label>තෙක්</mat-label>
+      <input
+        matInput
+        [matDatepicker]="endPicker"
+        [(ngModel)]="merit.activity_end_date"
+        name="activity_end_date"
+        [value]="
+          merit.activity_end_date
+            ? (merit.activity_end_date | date : 'yyyy-MM-dd')
+            : ''
+        "
+        (dateChange)="
+          merit.activity_end_date = $event.value
+            ? $event.value.toISOString()
+            : ''
+        "
+      />
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Receiver -->
+    <mat-label>ප්‍රතිග්‍රාහකයා/සංවිධායකයා</mat-label>
+    <br />
+    <select
+      matNativeControl
+      [(ngModel)]="receiverDefault"
+      name="type"
+      [ngModelOptions]="{ standalone: true }"
+      (ngModelChange)="merit.receiver = $event"
+    >
+      <option
+        *ngFor="let receiver of receiversDefault"
+        [value]="receiver.label"
+      >
+        {{ receiver.label }}
+      </option>
+    </select>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>ප්‍රතිග්‍රාහකයා/සංවිධායකයා</mat-label>
+      <input matInput [(ngModel)]="merit.receiver" name="receiver" />
+    </mat-form-field>
+
+    <!-- Date -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>දිනය</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="merit.date"
+        name="date"
+        required
+        [value]="merit.date ? (merit.date | date : 'yyyy-MM-dd') : ''"
+        (dateChange)="
+          merit.date = $event.value ? $event.value.toISOString() : ''
+        "
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Type -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>වර්ගය</mat-label>
+      <select matNativeControl required [(ngModel)]="merit.type" name="type">
+        <option value="" disabled>තෝරන්න</option>
+        <option *ngFor="let option of types" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </mat-form-field>
+
+    <!-- Status -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>තත්ත්වය</mat-label>
+      <select
+        matNativeControl
+        required
+        [(ngModel)]="merit.status"
+        name="status"
+      >
+        <option value="" disabled>තත්ත්වය තෝරන්න</option>
+        <option *ngFor="let status of statusOptions" [value]="status.value">
+          {{ status.label }}
+        </option>
+      </select>
+    </mat-form-field>
+
+    <!-- Video Urls -->
+    <div class="video-url-section">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>වීඩියෝ ලින්ක්</mat-label>
+        <input
+          matInput
+          [(ngModel)]="newVideoUrl"
+          name="newVideoUrl"
+          placeholder="Enter one video URL"
+          (keyup.enter)="addVideoUrl()"
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="addVideoUrl()"
+        [disabled]="!newVideoUrl.trim()"
+      >
+        එකතු කරන්න
+      </button>
+
+      <div *ngIf="videoUrlsArray.length > 0" class="url-list">
+        <mat-list>
+          <mat-list-item *ngFor="let url of videoUrlsArray; let i = index">
+            <a
+              class="vid-url"
+              [href]="url"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Link {{ i + 1 }}</a
+            >
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="removeVideoUrl(i, $event)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <!-- Existing Images (from DB) -->
+    <div class="image-section">
+      <!-- Drag & Drop Image Upload -->
+      <div
+        class="drag-drop-area"
+        (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        [class.dragging]="isDragging"
+      >
+        <p>තෝරන්න හෝ ඇද දමන්න</p>
+        <input
+          id="imageUpload"
+          type="file"
+          (change)="onImageSelected($event)"
+          accept="image/*"
+          multiple
+          hidden
+        />
+        <label for="imageUpload" class="custom-upload-button">
+          <mat-icon>add_photo_alternate</mat-icon>
+          තෝරන්න
+        </label>
+      </div>
+
+      <!-- New Images Previews -->
+      <div *ngIf="selectedFiles.length > 0">
+        <h4>තෝරාගත් ({{ selectedFiles.length }})</h4>
+        <div
+          *ngFor="let file of selectedFiles; let i = index"
+          class="image-upload-section"
+        >
+          <img
+            *ngIf="filePreviews[i]"
+            [src]="filePreviews[i]"
+            alt="Preview {{ i + 1 }}"
+            class="image-preview"
+          />
+          <p class="file-name">{{ file.name }}</p>
+          <button
+            type="button"
+            mat-button
+            color="warn"
+            (click)="removeNewImageLocally(i)"
+          >
+            X මකන්න
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons set 1-->
+    <div *ngIf="existingImages.length > 3" class="button-row">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="meritForm.invalid"
+      >
+        සුරකින්න
+      </button>
+      <button mat-button color="warn" type="button" (click)="onCancel()">
+        අවලංගු කරන්න
+      </button>
+    </div>
+    <div class="image-section existing-imgs">
+      <div *ngIf="existingImages.length > 0">
+        <h4>දැනට අප්ලෝඩ් කළ ඡායාරූප</h4>
+        <div
+          *ngFor="let img of existingImages; let i = index"
+          class="image-upload-section"
+        >
+          <img
+            [src]="img"
+            alt="Existing Image {{ i + 1 }}"
+            class="image-preview"
+          />
+          <button
+            type="button"
+            mat-button
+            color="warn"
+            (click)="removeExistingImageLocally(i)"
+          >
+            X මකන්න
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Buttons set 2-->
+    <div class="button-row">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="meritForm.invalid"
+      >
+        සුරකින්න
+      </button>
+      <button mat-button color="warn" type="button" (click)="onCancel()">
+        අවලංගු කරන්න
+      </button>
+    </div>
+  </form>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+</ng-template>

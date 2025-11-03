@@ -1,0 +1,45 @@
+<mat-toolbar color="primary" class="mat-elevation-z4">
+  <a class="logo" routerLink="/">
+    <img
+      [src]=getLogoUrl()
+      alt="Full size image"
+    />
+  </a>
+
+  <span class="spacer"></span>
+
+  <nav class="menu">
+    <button
+      class="btn-new"
+      *ngIf="isLoggedIn()"
+      mat-button
+      routerLink="/merits/add"
+    >
+      නව
+    </button>
+    <button
+      *ngIf="isLoggedIn()"
+      class="btn-other"
+      mat-button
+      routerLink="/merits/other"
+    >
+      වෙනත්
+    </button>
+    <button
+      class="btn-logout"
+      *ngIf="isLoggedIn()"
+      mat-button
+      (click)="logout()"
+    >
+      පිටවීම
+    </button>
+    <button
+      class="btn-login"
+      *ngIf="!isLoggedIn()"
+      mat-button
+      (click)="login()"
+    >
+      ඇතුල්වීම
+    </button>
+  </nav>
+</mat-toolbar>

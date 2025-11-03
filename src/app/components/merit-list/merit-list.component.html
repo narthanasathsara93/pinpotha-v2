@@ -1,0 +1,75 @@
+<div *ngIf="loading" class="loading-spinner">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="error" class="error-message">{{ error }}</div>
+
+<div class="merit-list-container" *ngIf="!loading && !error">
+  <div class="filter-row">
+    <section>
+      <div class="total-count">එකතුව : {{ totalCount }}</div>
+    </section>
+
+    <mat-form-field
+      *ngIf="!isOtherPage"
+      appearance="fill"
+      class="filter-select"
+    >
+      <mat-select
+        [value]="selectedType"
+        (valueChange)="selectedType = $event"
+        placeholder="සියලුම"
+      >
+        <mat-option value="">සියලුම</mat-option>
+        <mat-option *ngFor="let t of types; let i = index" [value]="t.value">
+          {{ i + 1 }}.{{ t.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isOtherPage" appearance="fill" class="filter-select">
+      <mat-select
+        [(value)]="selectedStatus"
+        (valueChange)="selectedStatus = $event"
+        placeholder="භාර ගත්"
+      >
+        <mat-option
+          *ngFor="let t of statusOptions.slice(1)"
+          [value]="t.value"
+          >{{ t.label }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="merit-item"
+    totalFilteredCount
+    *ngFor="let merit of merits; let i = index"
+    (click)="viewDetail(merit.id)"
+  >
+    <div class="merit-number">{{ pageIndex * pageSize + i + 1 }}</div>
+    <img
+      class="merit-image"
+      [src]="merit.image_urls.length ? merit.image_urls[0] : defaultImageUrl"
+      alt="{{ merit.title }}"
+    />
+    <div class="merit-info">
+      <h1></h1>
+      <h3 class="merit-title">{{ merit.title }}</h3>
+      <p class="merit-description">
+        {{ merit.description | stripHtml | slice : 0 : 80 }}...
+      </p>
+      <p class="merit-date">{{ merit.date | date : "mediumDate" }}</p>
+    </div>
+  </div>
+
+  <mat-paginator
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

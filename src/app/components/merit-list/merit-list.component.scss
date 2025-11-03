@@ -1,0 +1,116 @@
+.merit-list-container {
+  max-width: 1000px;
+  margin: 2rem auto; /* center horizontally with margin top/bottom */
+  padding: 0 1rem;
+}
+.merit-item,
+.filter-row {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.7),
+    rgba(245, 247, 238, 0.7)
+  );
+}
+
+.merit-item:hover {
+  cursor: pointer;
+  background: linear-gradient(to right, #fff3de, #ffffff);
+  box-shadow: #555;
+}
+.merit-item {
+  display: flex;
+  gap: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  border-bottom: 2px solid #c2c19b;
+  padding-bottom: 1rem;
+}
+.filter-row {
+  border-radius: 8px;
+}
+.merit-number {
+  font-weight: bold;
+  width: 24px;
+  text-align: right;
+}
+
+.merit-image {
+  margin-top: 2%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.merit-info {
+  flex: 1;
+}
+
+.merit-title {
+  font-family: "Abhaya Libre", serif;
+  margin: 0 0 0.3rem 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #410202;
+}
+
+.merit-description {
+  margin: 0 0 0.5rem 0;
+  color: #555;
+}
+
+.merit-date {
+  margin: 0;
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.filter-row {
+  display: flex;
+  justify-content: space-between; /* spread left & right */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filter-select {
+  width: 180px;
+}
+
+.total-count {
+  font-family: "Abhaya Libre", serif;
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #d50606;
+  text-shadow: #464646;
+  max-width: 1000px;
+  width: 200px;
+  padding: 0.7rem;
+  margin-left: 1%;
+  // border-radius: 12px;
+  // box-shadow: 0 4px 12px rgba(14, 14, 14, 0.08);
+}
+
+.filter-select {
+  height: 68px !important;
+  width: 180px;
+
+  /* Reduce height of mat-form-field */
+  .mat-form-field-wrapper {
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+
+  /* Reduce height of the select trigger */
+  .mat-select-trigger {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  /* Reduce padding inside the select */
+  .mat-select-value-text {
+    font-size: 0.875rem;
+    line-height: 30px;
+  }
+}

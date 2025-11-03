@@ -1,0 +1,15 @@
+<div *ngIf="images && images.length > 0; else noImages" class="gallery-grid">
+  <div
+    class="gallery-item"
+    *ngFor="let img of images"
+    (click)="openImageDialog(img)"
+  >
+    <img [src]="img" alt="Merit image" />
+  </div>
+</div>
+
+<ng-template #noImages>
+  <p>
+    <!-- No images available. -->
+  </p>
+</ng-template>

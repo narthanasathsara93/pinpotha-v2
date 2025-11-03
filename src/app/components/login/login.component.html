@@ -1,0 +1,42 @@
+<div class="login-container">
+  <h2>Login / Create User</h2>
+
+  <form (ngSubmit)="login()" #loginForm="ngForm" (keydown.enter)="login()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        required
+        name="userName"
+        [(ngModel)]="userName"
+        placeholder="Enter username"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        required
+        name="password"
+        [(ngModel)]="password"
+        type="password"
+        placeholder="Enter password"
+      />
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="button" (click)="login()" [disabled]="loading">
+        Login
+      </button>
+      <!-- <button mat-stroked-button color="accent" type="button" (click)="onCreateUser()" [disabled]="loading">
+        Create User
+      </button> -->
+    </div>
+
+    <mat-progress-spinner *ngIf="loading" diameter="30" mode="indeterminate"></mat-progress-spinner>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="success" class="success">{{ success }}</div>
+  </form>
+</div>

@@ -1,0 +1,118 @@
+<div *ngIf="loading" class="loading-spinner">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="error">{{ error }}</div>
+
+<div *ngIf="merit && !loading" class="detail-container">
+  <!-- Title -->
+  <header class="header-row">
+    <h2>{{ merit?.title }}</h2>
+    <div class="meta-row">
+      <span
+        *ngIf="merit.status !== 'DONE'"
+        class="status-badge"
+        [ngClass]="{
+          'status-promised': merit.status === 'PROMISED',
+          'status-to-be-done': merit.status === 'TO_BE_DONE',
+          'status-abandoned': merit.status === 'ABANDONED'
+        }"
+        >>
+        {{ getStatusLabel(merit.status) }}
+      </span>
+      <time class="merit-date">{{ merit.date | date : "mediumDate" }}</time>
+    </div>
+  </header>
+
+  <!-- Description -->
+  <section class="description-section">
+    <h3>විස්තරය</h3>
+    <div
+      class="description"
+      [innerHTML]="setSafeDescription(merit.description)"
+    ></div>
+  </section>
+  
+  <!-- Activity Date -->
+  <section class="activity-period-section" *ngIf="activityPeriodExists">
+    <h3>පිංකම සිදු {{ activityPeriodText }} දින වකවානු</h3>
+    <h2 class="activity-period">{{ activityPeriod }}</h2>
+  </section>
+
+  <!-- Receiver -->
+  <section class="receiver-section" *ngIf="merit?.receiver">
+    <h3>ප්‍රතිග්‍රාහකයා/සංවිධායකයා</h3>
+    <h2 class="receiver">{{ merit?.receiver }}</h2>
+  </section>
+
+  <!-- Images -->
+  <section
+    class="images-section"
+    *ngIf="merit.image_urls && merit.image_urls.length > 0"
+  >
+    <h3 class="sub-title">ඡායාරූප</h3>
+    <app-image-gallery [images]="merit.image_urls"></app-image-gallery>
+  </section>
+
+  <!-- Video URLs -->
+  <section
+    *ngIf="merit.video_urls && merit.video_urls.length > 0"
+    class="video-list"
+  >
+    <h3 class="sub-title">වීඩියෝ</h3>
+    <!-- <div *ngFor="let url of videoUrls" style="margin-bottom: 1rem">
+      <iframe
+        [src]="url"
+        width="640"
+        height="480"
+        allow="autoplay"
+        frameborder="0"
+      ></iframe>
+    </div> -->
+
+    <div *ngFor="let url of videoUrls" style="margin-bottom: 1rem">
+      <iframe [src]="url" frameborder="0"></iframe>
+    </div>
+  </section>
+
+  <!-- Buttons -->
+  <div class="button-row">
+    <button
+      mat-stroked-button
+      class="btn-back"
+      (click)="onBack()"
+      aria-label="Back"
+    >
+      ආපසු
+      <mat-icon class="btn-icon">arrow_back</mat-icon>
+    </button>
+    <ng-container *ngIf="isLoggedIn()">
+      <button
+        mat-stroked-button
+        class="btn-edit"
+        (click)="onEdit()"
+        aria-label="Edit"
+      >
+        වෙනස් කිරීම්
+        <mat-icon class="btn-icon">edit</mat-icon>
+      </button>
+      <button
+        mat-stroked-button
+        class="btn-delete"
+        (click)="onDelete()"
+        aria-label="Delete"
+      >
+        මකන්න
+        <mat-icon class="btn-icon">delete</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+</div>
+
+<div
+  class="bottom-container"
+  *ngIf="merit && !loading && merit.status === 'DONE'"
+>
+  <h2>මෙය දකින සියල්ලෝ මේ පින් අනුමෝදන් වෙත්වා!</h2>
+  <h2>සාධු! සාධු!! සාධු!!!</h2>
+  <h2>🪷🪷🪷</h2>
+</div>
