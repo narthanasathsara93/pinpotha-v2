@@ -1,16 +1,16 @@
-name: Scheduled Supabase Fetch
+name: Supabase Keep Alive
 
 on:
   schedule:
-    - cron: '0 20 * * 0,4'
+    - cron: '0 20 * * 0,4' # Mon & Fri 05:00 JST
   workflow_dispatch:
 
 jobs:
-  fetch:
+  ping:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Call Supabase Edge Function
+      - name: Ping Supabase
         run: |
-          curl -X POST https://exhpdkktrnbduubqjyso.supabase.co/functions/v1/fetch \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
+          curl "${{ secrets.SUPABASE_URL }}/rest/v1/merits?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
