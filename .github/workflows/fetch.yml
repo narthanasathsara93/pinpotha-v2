@@ -1,0 +1,16 @@
+name: Scheduled Supabase Fetch
+
+on:
+  schedule:
+    - cron: '0 20 * * 0,4'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Supabase Edge Function
+        run: |
+          curl -X POST https://exhpdkktrnbduubqjyso.supabase.co/functions/v1/fetch \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
