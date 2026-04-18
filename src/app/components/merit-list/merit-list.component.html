@@ -9,7 +9,8 @@
     <section>
       <div class="total-count">එකතුව : {{ totalCount }}</div>
     </section>
-
+    <button (click)="reuploadAllMeritImages()">Refresh Images</button>
+    <button (click)="cleanupOrphanedImages()">Cleanup Orphaned Images</button>
     <mat-form-field
       *ngIf="!isOtherPage"
       appearance="fill"
@@ -58,9 +59,9 @@
       <h1></h1>
       <h3 class="merit-title">{{ merit.title }}</h3>
       <p class="merit-description">
-        {{ merit.description | stripHtml | slice : 0 : 80 }}...
+        {{ merit.description | stripHtml | slice: 0 : 80 }}...
       </p>
-      <p class="merit-date">{{ merit.date | date : "mediumDate" }}</p>
+      <p class="merit-date">{{ merit.date | date: "mediumDate" }}</p>
     </div>
   </div>
 

@@ -142,6 +142,45 @@ export class MeritListComponent {
     this.router.navigate(['/merits', parseInt(id)]);
   }
 
+  async refreshImagesForMerit(id: number) {
+    this.loading = true;
+    try {
+      await this.supabase.reuploadMeritImages(id);
+      alert('Images reuploaded and URLs updated');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to reupload images');
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async reuploadAllMeritImages(): Promise<void> {
+    this.loading = true;
+    try {
+      await this.supabase.reuploadAllMeritImages();
+      alert('All images reuploaded and URLs updated');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to reupload all images');
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async cleanupOrphanedImages(): Promise<void> {
+    this.loading = true;
+    try {
+      const result = await this.supabase.cleanupOrphanedImages();
+      alert(`Deleted ${result.deleted.length} orphaned images`);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to cleanup orphaned images');
+    } finally {
+      this.loading = false;
+    }
+  }
+
   updateQueryParams() {
     this.router.navigate([], {
       relativeTo: this.route,
