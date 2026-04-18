@@ -29,7 +29,7 @@ export class SupabaseService {
     }
 
     const { data, error, count } = await query;
-   
+
     if (error) throw error;
     return { data: data || [], count: count || 0 };
   }
