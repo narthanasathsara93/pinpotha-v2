@@ -10,7 +10,7 @@ export class ImageService {
 
   async compressImage(file: File): Promise<File> {
     const compressedFile = await imageCompression(file, {
-      maxSizeMB: 0.2,
+      maxSizeMB: 0.15,
       useWebWorker: true,
       maxIteration: 20,
       initialQuality: 0.9,
