@@ -210,11 +210,10 @@ export class MeritFormComponent {
     }
 
     for (const file of this.selectedFiles) {
-      const maxSizeKB = (file.size * (2 / 3)) / 1000;
       const compressedFile = await this.imageService.compressImage(
-        file,
-        maxSizeKB
+        file
       );
+      console.log(`Original size: ${(file.size)}, Compressed size: ${(compressedFile.size)}`);
       const url = await this.supabase.uploadImage(compressedFile);
       if (url) {
         uploadedUrls.push(url);
