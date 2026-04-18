@@ -9,7 +9,7 @@ export class SupabaseService {
     pageSize: number,
     column: string,
     status: string,
-    type?: string
+    type?: string,
   ): Promise<{ data: Merit[]; count: number }> {
     const from = pageIndex * pageSize;
     const to = from + pageSize - 1;
@@ -47,7 +47,7 @@ export class SupabaseService {
   }
 
   async insertMerit(
-    merit: Omit<Merit, 'id' | 'created_at' | 'updated_at'>
+    merit: Omit<Merit, 'id' | 'created_at' | 'updated_at'>,
   ): Promise<{ error?: string }> {
     const { error } = await supabase.from(mertisTable).insert([merit]);
     if (error) {
@@ -59,7 +59,7 @@ export class SupabaseService {
 
   async updateMerit(
     id: number,
-    merit: Omit<Merit, 'created_at' | 'updated_at'>
+    merit: Omit<Merit, 'created_at' | 'updated_at'>,
   ): Promise<void> {
     try {
       const { error: fetchError } = await supabase
@@ -148,10 +148,10 @@ export class SupabaseService {
         console.error('Invalid file path extracted from URL:', publicUrl);
         return;
       }
-
       const { error, data } = await supabase.storage
         .from(`${bucketName}`)
         .remove([`${fileName}`]);
+
       this.clearCache();
 
       if (error) {
