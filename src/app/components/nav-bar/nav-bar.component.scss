@@ -8,8 +8,7 @@ mat-toolbar {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* ensure it's above other content */
-  /* Optional: add box-shadow or elevation */
+  z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -19,7 +18,9 @@ mat-toolbar {
   font-size: 3rem;
   font-family: "Abhaya Libre", serif;
   text-decoration: none;
-  transition: text-shadow 0.3s ease, color 0.3s ease;
+  transition:
+    text-shadow 0.3s ease,
+    color 0.3s ease;
 }
 
 .logo img {
@@ -29,8 +30,11 @@ mat-toolbar {
 }
 
 .logo:hover {
-  color: #1a0202; /* keep same or slightly brighter */
-  text-shadow: 0 0 5px #f7b69c, 0 0 10px #f7b69c, 0 0 15px #f7b69c;
+  color: #1a0202;
+  text-shadow:
+    0 0 5px #f7b69c,
+    0 0 10px #f7b69c,
+    0 0 15px #f7b69c;
 }
 .spacer {
   flex: 1 1 auto;
@@ -68,6 +72,14 @@ mat-toolbar {
 @media (max-width: 600px) {
   mat-toolbar {
     padding: 0 0.5rem;
+  }
+
+  .logo img {
+    max-width: 140px;
+    height: auto;
+  }
+  .spacer {
+    flex: 0.5;
   }
 
   .menu button {
