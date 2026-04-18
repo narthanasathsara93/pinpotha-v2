@@ -74,7 +74,7 @@ export class MeritFormComponent {
     private route: ActivatedRoute,
     private router: Router,
     private supabase: SupabaseService,
-    private imageService: ImageService
+    private imageService: ImageService,
   ) {}
 
   async ngOnInit() {
@@ -162,7 +162,7 @@ export class MeritFormComponent {
     try {
       const uploadedUrls = await this.uploadSelectedImages();
       const finalImageUrls = [...this.existingImages, ...uploadedUrls].filter(
-        Boolean
+        Boolean,
       );
       if (Array.isArray(this.merit.video_urls)) {
         this.videoUrlsArray = this.merit.video_urls;
@@ -256,7 +256,7 @@ export class MeritFormComponent {
 
   removeExistingImageLocally(index: number) {
     const confirmDelete = confirm(
-      'Remove this image? It will be deleted from storage after saving.'
+      'Remove this image? It will be deleted from storage after saving.',
     );
     if (!confirmDelete) return;
 
