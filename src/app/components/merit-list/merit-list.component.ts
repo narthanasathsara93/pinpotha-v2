@@ -81,7 +81,7 @@ export class MeritListComponent {
       this.loadMerits();
     });
 
-    this.defaultImageUrl = this.imageService.getImageByName("lotus_icon.jpg");
+    this.defaultImageUrl = this.imageService.getImageByName("/resources/lotus_icon.jpg");
   }
 
   async loadMerits() {

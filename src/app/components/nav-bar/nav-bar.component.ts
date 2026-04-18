@@ -42,6 +42,6 @@ export class NavbarComponent {
     return localStorage.getItem('auth') === 'true';
   }
   getLogoUrl(): string {
-    return this.imageService.getImageByName("logo.png");
+    return this.imageService.getImageByName("/resources/logo.png");
   }
 }
